@@ -14,6 +14,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         kBluetoothManager.enableBT(this)
+        val devices = kBluetoothManager.getPairedDevices()
+        Log.d("end","end")
 
     }
 }
