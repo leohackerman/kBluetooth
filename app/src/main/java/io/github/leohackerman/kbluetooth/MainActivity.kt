@@ -27,36 +27,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-
-        val MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1
-        ActivityCompat.requestPermissions(this,
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
-                MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION)
-
-        val filter = IntentFilter(BluetoothDevice.ACTION_FOUND)
-        registerReceiver(mReceiver, filter)
         start_discovery.setOnClickListener{
-
-            BluetoothAdapter.getDefaultAdapter().startDiscovery()
+            kBluetoothManager.discover(this)
         }
 
     }
 
-    // Create a BroadcastReceiver for ACTION_FOUND.
-    private val mReceiver = object : BroadcastReceiver() {
 
-        override fun onReceive(context: Context, intent: Intent) {
-            val action: String = intent.action
-            when(action) {
-                BluetoothDevice.ACTION_FOUND -> {
-                    // Discovery has found a device. Get the BluetoothDevice
-                    // object and its info from the Intent.
-                    val device: BluetoothDevice =
-                            intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE)
-                    val deviceName = device.name
-                    val deviceHardwareAddress = device.address // MAC address
-                }
-            }
-        }
-    }
 }

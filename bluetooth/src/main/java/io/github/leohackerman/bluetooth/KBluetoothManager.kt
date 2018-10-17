@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import androidx.core.app.ActivityCompat
 
 class KBluetoothManager {
 
@@ -42,6 +43,10 @@ class KBluetoothManager {
     }
 
     fun discover(activity: Activity){
+        // Request for the location permission. THIS IS REQUIRED in order to discover BT devices
+        ActivityCompat.requestPermissions(activity,
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                REQUEST_DISCOVERY_BT)
         val filter = IntentFilter(BluetoothDevice.ACTION_FOUND)
         activity.registerReceiver(mReceiver,filter)
         btAdapter?.startDiscovery()
